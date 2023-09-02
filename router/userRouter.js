@@ -14,6 +14,6 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/startRecording',startRecording);
-router.post('/saveVideoUrl',multer().none(),saveVideoUrl);
+router.post('/saveVideoUrl',saveVideoUrl);
 
 module.exports=router;

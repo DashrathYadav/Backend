@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const bodyParser = require("body-parser");
+const bd = require("body-parser");
 const router = require("./router/userRouter");
 const app = express();
 const cors = require("cors");
@@ -16,19 +16,20 @@ mongoose.connection.on("connected", (connected) => {
   console.log("Connected to Database");
 });
 
-//recordingapp.netlify.app
+//https://recordingapp.netlify.app
 //http://localhost:5173
 app.use(
   cors({
-    origin: "https://recordingapp.netlify.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bd.urlencoded({ extended: false }));
+app.use(bd.json());
 app.use(router);
+
 app.use((req, res, next) => {
   res.status(400).json({
     msg: "Bad Request page you request in not present",

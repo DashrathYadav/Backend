@@ -73,6 +73,11 @@ module.exports.startRecording = async (req, res) => {
 
 module.exports.saveVideoUrl = async (req, res) => {
   try {
+
+    console.log("title",req.body.tite);
+    console.log("Description",req.body.description);
+    console.log("cloudinary url",req.body.cloudianryUrl);
+
     console.log(req.cookies);
     const id = req.cookies.id;
     if (!id) {
@@ -84,7 +89,10 @@ module.exports.saveVideoUrl = async (req, res) => {
     if (!user) {
       throw Error("User not exist ,wrong id");
     }
-    console.log(res.body);
+
+    console.log("title",req.body.title);
+    console.log("Description",req.body.description);
+    console.log("cloudinary url",req.body.cloudianryUrl);
     const data = {
       createOn: new Date(),
       title: req.body.title || "Title",
