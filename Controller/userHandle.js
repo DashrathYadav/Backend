@@ -74,21 +74,13 @@ module.exports.startRecording = async (req, res) => {
 module.exports.saveVideoUrl = async (req, res) => {
   try {
 
-    console.log("title",req.body.tite);
+    console.log("title",req.body.title);
     console.log("Description",req.body.description);
     console.log("cloudinary url",req.body.cloudianryUrl);
+    console.log("id found is",req.body.id);
 
-    console.log(req.cookies);
-    let id = req.cookies.id;
-    console.log("userId",id);
-
-    let cookies=req?.headers?.cookie;
-    cookies=cookies.split("=")[1].split(";");
-  
-    console.log("after split",cookies[0]);
-    console.log("header cookie", req?.headers?.cookie);
-    id=cookies[0];
-
+    let id = req.body.id;
+   
     if (!id) {
       throw Error("User not  found ,id absent ,login again");
     }
