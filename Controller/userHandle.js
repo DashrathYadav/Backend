@@ -79,7 +79,16 @@ module.exports.saveVideoUrl = async (req, res) => {
     console.log("cloudinary url",req.body.cloudianryUrl);
 
     console.log(req.cookies);
-    const id = req.cookies.id;
+    let id = req.cookies.id;
+    console.log("userId",id);
+
+    let cookies=req?.headers?.cookie;
+    cookies=cookies.split("=")[1].split(";");
+  
+    console.log("after split",cookies[0]);
+    console.log("header cookie", req?.headers?.cookie);
+    id=cookies[0];
+
     if (!id) {
       throw Error("User not  found ,id absent ,login again");
     }

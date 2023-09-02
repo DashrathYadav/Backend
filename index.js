@@ -20,7 +20,7 @@ mongoose.connection.on("connected", (connected) => {
 //http://localhost:5173
 app.use(
   cors({
-    origin: "https://recordingapp.netlify.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
