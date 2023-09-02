@@ -15,9 +15,12 @@ mongoose.connection.on("error", (err) => {
 mongoose.connection.on("connected", (connected) => {
   console.log("Connected to Database");
 });
+
+//recordingapp.netlify.app
+//http://localhost:5173
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://recordingapp.netlify.app",
     credentials: true,
   })
 );
@@ -32,7 +35,7 @@ app.use((req, res, next) => {
   });
 });
 
-const port = 3000;
+const port = process.env.PORT|| 3000;
 app.listen(port, () => {
   console.log("sever started at", "http://localhost:3000");
 });
