@@ -84,7 +84,7 @@ module.exports.saveVideoUrl = async (req, res) => {
       throw Error("User not  found ,id absent ,login again");
     }
 
-    const user = await userSchema.findById(id);
+    let user = await userSchema.findById(id);
 
     if (!user) {
       throw Error("User not exist ,wrong id");
@@ -103,6 +103,7 @@ module.exports.saveVideoUrl = async (req, res) => {
     const result = await user.save();
     return response(res, 200, "recording saved successfully", result);
   } catch (err) {
+    console.log(err);
     return response(res, 400, "failed to save recording url ", err);
   }
 };
