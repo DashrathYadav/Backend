@@ -7,6 +7,7 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+//mongo connection
 mongoose.connect(process.env.DB_URL);
 mongoose.connection.useDb("Assignment");
 mongoose.connection.on("error", (err) => {
@@ -16,27 +17,27 @@ mongoose.connection.on("connected", (connected) => {
   console.log("Connected to Database");
 });
 
-//https://recordingapp.netlify.app
-//http://localhost:5173
+// middlewares
 app.use(
   cors({
     origin: "https://recordingapp.netlify.app",
     credentials: true,
   })
 );
-
 app.use(cookieParser());
 app.use(bd.urlencoded({ extended: false }));
 app.use(bd.json());
 app.use(router);
 
+
+// handling 404
 app.use((req, res, next) => {
-  res.status(400).json({
+  res.status(404).json({
     msg: "Bad Request page you request in not present",
   });
 });
 
 const port = process.env.PORT|| 3000;
 app.listen(port, () => {
-  console.log("sever started at", "http://localhost:3000");
+  console.log("sever started");
 });

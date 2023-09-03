@@ -2,7 +2,6 @@ const genSignature = require("../middleware/cloudinarySignature");
 const userSchema = require("../schema/userSchema");
 const jwt = require("jsonwebtoken");
 
-
 //function to genetate response
 function response(res, statusCode, msg, result) {
   return res.status(statusCode).send({ msg, result });
@@ -35,6 +34,9 @@ module.exports.register = async (req, res) => {
 
     const id = user._id.toString();
     console.log("id in string is", id);
+
+
+    //cookie registration.
     res.cookie("jwt", createJwtToken(id), {
       maxAge: 60 * 60 * 1000,
       httpOnly: true,
@@ -52,11 +54,11 @@ module.exports.register = async (req, res) => {
   }
 };
 
+
+//on  signed Url -generate and handling
 module.exports.startRecording = async (req, res) => {
-  //cloudnary setup
   try {
     const { signature, timestamp } = genSignature("userId");
-    console.log(signature, timestamp);
     const result = {
       signature,
       timestamp,
@@ -66,21 +68,17 @@ module.exports.startRecording = async (req, res) => {
     };
     return response(res, 200, "success signature generation", result);
   } catch (err) {
-    console.log("error in start recording", err);
+    console.log(err);
     return response(res, 400, "error in start Recording or signature", err);
   }
 };
 
+
+// saving uploded urls
 module.exports.saveVideoUrl = async (req, res) => {
   try {
-
-    console.log("title",req.body.title);
-    console.log("Description",req.body.description);
-    console.log("cloudinary url",req.body.cloudianryUrl);
-    console.log("id found is",req.body.id);
-
     let id = req.body.id;
-   
+
     if (!id) {
       throw Error("User not  found ,id absent ,login again");
     }
@@ -91,9 +89,6 @@ module.exports.saveVideoUrl = async (req, res) => {
       throw Error("User not exist ,wrong id");
     }
 
-    console.log("title",req.body.title);
-    console.log("Description",req.body.description);
-    console.log("cloudinary url",req.body.cloudianryUrl);
     const data = {
       createOn: new Date(),
       title: req.body.title || "Title",

@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     createOn: Date,
     title: String,
     description: String,
-    cloudianryUrl: String, // link of uploaded video to s3 bucket
+    cloudianryUrl: String, // link of uploaded video 
     },
     ],
     });

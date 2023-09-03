@@ -4,6 +4,7 @@ const { register, startRecording, saveVideoUrl } = require('../Controller/userHa
 
 const router=Router();
 
+
 router.post('/',register);
 
 router.get('/',(req,res)=>{
@@ -12,6 +13,7 @@ router.get('/',(req,res)=>{
 
     return res.send("Hello There");
 })
+
 
 router.get('/startRecording',startRecording);
 router.post('/saveVideoUrl',saveVideoUrl);
